@@ -1,0 +1,22 @@
+{
+  "name": "coding-example-ui",
+  "version": "0.0.1",
+  "description": "Code example for UNYCOM",
+  "author": "Max Sinelnikov",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && webpack --bail --progress",
+    "server": "webpack-dev-server --inline --progress",
+    "start": "npm run server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "angular": "^1.7.5"
+  },
+  "devDependencies": {
+    "rimraf": "^2.5.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.0"
+  }
+}
