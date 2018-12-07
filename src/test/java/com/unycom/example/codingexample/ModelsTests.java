@@ -56,31 +56,28 @@ public class ModelsTests {
     public void testDiscountCalculation() {
         Order o = new Order();
         o.setPrice(0L);
-        assertEquals(0L, o.getFinalPrice());
+        assertEquals(BigDecimal.ZERO, o.getFinalPrice());
 
-        o.setPrice(100L); // expected -1%
-        assertEquals(99L, o.getFinalPrice());
+        o.setPrice(10000L); // 100 EUR,  expected -1% (N < 1000)
+        assertEquals(new BigDecimal("99.00"), o.getFinalPrice());
 
-        o.setPrice(999L); // expected -1%
-        assertEquals(989, o.getFinalPrice());
+        o.setPrice(99900L); // 999 EUR, expected -1%  (N < 1000)
+        assertEquals(new BigDecimal("989.01"), o.getFinalPrice());
 
-        o.setPrice(1000L); // expected -2%
-        assertEquals(980L, o.getFinalPrice());
+        o.setPrice(100000L); // 1000 EUR, expected -2% (1000<=N<5000)
+        assertEquals(new BigDecimal("980.00"), o.getFinalPrice());
 
-        o.setPrice(4999L); // expected -2%
-        assertEquals(4899L, o.getFinalPrice());
+        o.setPrice(499999L); // 4999.99 EUR, expected -2%, (1000<=N<5000)
+        assertEquals(new BigDecimal("4899.99"), o.getFinalPrice());
 
-        o.setPrice(5000L); // expected -5%
-        assertEquals(4750L, o.getFinalPrice());
+        o.setPrice(500000L); // 5000 EUR, expected -5% (5000<=N<20000)
+        assertEquals(new BigDecimal("4750.00"), o.getFinalPrice());
 
-        o.setPrice(19999L); // expected -5%
-        assertEquals(18999L, o.getFinalPrice());
+        o.setPrice(2000000L); // expected -10%, (N>=20000)
+        assertEquals(new BigDecimal("18000.00"), o.getFinalPrice());
 
-        o.setPrice(20000L); // expected -10%
-        assertEquals(18000L, o.getFinalPrice());
-
-        o.setPrice(21999L); // expected -10%
-        assertEquals(19799L, o.getFinalPrice());
+        o.setPrice(2199900L); // 21999 EUR, expected -10%, (N>=20000)
+        assertEquals(new BigDecimal("19799.10"), o.getFinalPrice());
     }
 
 

@@ -6,12 +6,18 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
 @Table(name="CUSTOMER_ORDER")
 public class Order {
+
+    private static final BigDecimal priceMultiplicator  = new BigDecimal("100");
+    private static final int priceScale = 2;
+    private static final int ROUND_MODE = BigDecimal.ROUND_HALF_EVEN;
+
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,10 +39,9 @@ public class Order {
     @Size(max=256)
     private String product;
 
-    // Integer is not sufficient to keep 10 digits, BigDecimal and BigInteger
-    // is an overkill. Long looks like an appropriate trade-off.
+    // keep price in the database as long value representing amount in cents. (amountInEUR*100)
     @NotNull
-    @Max(value=9999999999L)
+    @Max(value=999999999999L) // 10^12 - 1
     @Min(value=0)
     private Long price;
 
@@ -88,12 +93,17 @@ public class Order {
         this.product = product;
     }
 
-    public Long getPrice() {
-        return price;
+    @JsonFormat(shape=JsonFormat.Shape.STRING)
+    public BigDecimal getPrice() {
+        return new BigDecimal(price).divide(priceMultiplicator).setScale(priceScale, ROUND_MODE);
     }
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price.multiply(priceMultiplicator).longValue();
     }
 
     public OrderStatus getStatus() {
@@ -118,22 +128,22 @@ public class Order {
         }
     }
 
-    public long getFinalPrice() {
+    @JsonFormat(shape=JsonFormat.Shape.STRING)
+    public BigDecimal getFinalPrice() {
         if (price <= 0) {
-            return 0L;
+            return BigDecimal.ZERO;
         }
-        BigDecimal originalPrice = new BigDecimal(price);
         BigDecimal discountPercent;
-        if (price < 1000) {
+        if (price < 100000) {
             discountPercent = new BigDecimal("0.01");
-        } else if (price < 5000) {
+        } else if (price < 500000) {
             discountPercent = new BigDecimal("0.02");
-        } else if (price < 20000) {
+        } else if (price < 2000000) {
             discountPercent = new BigDecimal("0.05");
         } else {
             discountPercent = new BigDecimal("0.1");
         }
-        return originalPrice.subtract(originalPrice.multiply(discountPercent))
-                .setScale(0, RoundingMode.HALF_EVEN).longValue();
+        BigDecimal originalPrice = getPrice();
+        return originalPrice.subtract(originalPrice.multiply(discountPercent)).setScale(priceScale, ROUND_MODE);
     }
 }

@@ -1,5 +1,6 @@
 package com.unycom.example.codingexample;
 
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.time.LocalDate;
@@ -41,7 +42,7 @@ public class JsonSerializationTests {
         Order o = new Order();
         o.setId(faker.number().randomNumber());
         o.setProduct(faker.commerce().productName());
-        o.setPrice(faker.number().numberBetween(1, (long)Math.pow(10.0, 10.0)));
+        o.setPrice(faker.number().numberBetween(1, (long)Math.pow(10.0, 12.0) - 1));
         o.setStatus(faker.options().option(OrderStatus.class));
         o.setOrderDate(LocalDateTime.now().minusDays(faker.number().numberBetween(10, 100)));
         switch(o.getStatus()) {
@@ -65,7 +66,8 @@ public class JsonSerializationTests {
                 LocalDateTime.parse(json.get("orderDate").asText(), DateTimeFormatter.ISO_DATE_TIME));
         assertEquals(o.getProduct(), json.get("product").asText());
         assertEquals(o.getStatus(), OrderStatus.valueOf(json.get("status").asText()));
-        assertEquals(o.getFinalPrice(), json.get("finalPrice").asLong());
+        assertEquals(o.getPrice(), new BigDecimal(json.get("price").asText()));
+        assertEquals(o.getFinalPrice(), new BigDecimal(json.get("finalPrice").asText()));
         assertNotNull(json.get("customer"));
         assertNull(json.get("customer").get("orders"));
     }
@@ -77,7 +79,6 @@ public class JsonSerializationTests {
         c.addOrder(buildTestOrder());
         String result = mapper.writeValueAsString(c);
         JsonNode json = mapper.readTree(result);
-        System.out.println(result);
         assertEquals(c.getCode(), json.get("code").asText());
         assertEquals(c.getName(), json.get("name").asText());
         assertEquals(c.getLocation(), json.get("location").asText());
