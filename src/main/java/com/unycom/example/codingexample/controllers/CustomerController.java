@@ -1,14 +1,14 @@
 package com.unycom.example.codingexample.controllers;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.unycom.example.codingexample.models.Customer;
-import com.unycom.example.codingexample.repositories.CustomerRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import com.unycom.example.codingexample.models.Customer;
+import com.unycom.example.codingexample.repositories.CustomerRepository;
+
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -27,6 +27,7 @@ public class CustomerController {
 
     @GetMapping("/{code}")
     public Customer getCustomer(@PathVariable String code) {
-        return customerRepository.findByCode(code).orElseThrow(() -> new CustomerNotFound());
+        return customerRepository.findByCode(code)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
     }
 }

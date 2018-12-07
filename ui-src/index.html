@@ -2,15 +2,18 @@
 <html lang="en" ng-app="unycomApp">
 <head>
     <meta charset="utf-8">
-    <title>UNYCOM test assignment</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <title>UNYCOM coding task</title>
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/animations.css">
     <script src="js/bundle.js"></script>
 </head>
 <body>
 
 <body>
-    <p>Nothing here {{'yet' + '!'}}</p>
+    <h1>UNYCOM coding task</h1>
+    <ul class="simple-menu">
+        <li><a ng-href="/#!/customers">Customers</a></li>
+        <li><a ng-href="/#!/orders">Orders</a></li>
+    </ul>
+    <div ng-view></div>
 </body>
 </html>

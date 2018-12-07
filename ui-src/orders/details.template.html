@@ -1,0 +1,23 @@
+<h2>Order #{{$ctrl.order.id}} details</h2>
+<dl>
+    <dt>Order date:</dt>
+    <dd>{{$ctrl.order.orderDate|date: "medium"}}</dd>
+    <dt>Product name:</dt>
+    <dd>{{$ctrl.order.product}}</dd>
+    <dt>Product price:</dt>
+    <dd>{{$ctrl.order.price}} EUR</dd>
+    <dt>Order final price:</dt>
+    <dd>{{$ctrl.order.finalPrice}} EUR</dd>
+    <dt>Order status:</dt>
+    <dd>{{$ctrl.order.status}}</dd>
+    <dt ng-if="$ctrl.order.confirmationDate">Confirmation date</dt>
+    <dd ng-if="$ctrl.order.confirmationDate">{{$ctrl.order.confirmationDate|date: "medium"}}</dd>
+    <dt ng-if="$ctrl.order.completionDate">Completion date</dt>
+    <dd ng-if="$ctrl.order.completionDate">{{$ctrl.order.completionDate|date: "medium"}}</dd>
+    <dt>Customer:</dt>
+    <dd><a ng-href="/#!/customers/{{$ctrl.order.customer.code}}">{{$ctrl.order.customer.name}}</a></dd>
+</dl>
+<pre>
+DEBUG:
+{{$ctrl.order|json}}
+</pre>
