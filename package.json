@@ -15,6 +15,7 @@
     "angular-route": "^1.7.5"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.6.0",
     "rimraf": "^2.5.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",

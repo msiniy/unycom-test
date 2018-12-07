@@ -1,6 +1,7 @@
 'use strict';
 
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 /**
  * Env
@@ -9,7 +10,6 @@ var webpack = require('webpack');
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
-console.log("isProd = " + isProd);
 
 module.exports = {
   entry: './ui-src/main.js',
@@ -18,6 +18,28 @@ module.exports = {
   },
 
   mode: isProd ? 'production' : 'development',
+
+  plugins: [
+      new CopyWebpackPlugin([
+        // copy index.html
+        {
+            from: 'ui-src/index.html',
+            to: 'index.html'
+        },
+        // copy angular templates
+        {
+            from: 'ui-src/*/*.template.html',
+            test: /(.+)\/(.+)\/(.+)\.html$/,
+            to: '[2]/[name].[ext]'
+        },
+        // copy css
+        {
+            from: 'ui-src/css/*.css',
+            to: 'css/[name].[ext]'
+        },
+
+      ])
+  ],
 
   devServer: {
     contentBase: './ui-src',

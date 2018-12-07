@@ -7,7 +7,6 @@ angular.module("customers", [])
         $http.get("/api/v1/customers").then(function(response) {
             self.customers = response.data;
         });
-
     }]
 }).component("customerDetails", {
     templateUrl: "customers/details.template.html",
