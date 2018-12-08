@@ -50,6 +50,7 @@ public class Order {
     private OrderStatus status;
 
     @ManyToOne
+    @NotNull
     @JsonIgnoreProperties("orders")
     private Customer customer;
 

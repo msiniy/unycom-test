@@ -23,6 +23,7 @@ public class Customer {
 
     @Column(length=256)
     @Size(max=256)
+    @NotNull
     private String name;
 
     @Column(length=256)
