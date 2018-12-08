@@ -1,4 +1,6 @@
-<h2  class="customer-details">{{$ctrl.customer.name}}</h2>
+<h2>
+    <customer-name customer="$ctrl.customer"></customer-name>
+</h2>
 
 <dl class="customer-details">
     <dt>Code:</dt>
@@ -7,8 +9,6 @@
     <dd>{{$ctrl.customer.location}}</dd>
     <dt>Registration date:</dt>
     <dd>{{$ctrl.customer.registrationDate|date: "fullDate"}}</dd>
-    <dt>Customer statues:</dt>
-    <dd>{{$ctrl.customer.status}}</dd>
     <dt>Is Active?</dt>
     <dd>{{$ctrl.customer.active}}</dd>
     <dt>Customer type</dt>

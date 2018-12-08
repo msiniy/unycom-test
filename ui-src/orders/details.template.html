@@ -15,9 +15,15 @@
     <dt ng-if="$ctrl.order.completionDate">Completion date</dt>
     <dd ng-if="$ctrl.order.completionDate">{{$ctrl.order.completionDate|date: "medium"}}</dd>
     <dt>Customer:</dt>
-    <dd><a ng-href="/#!/customers/{{$ctrl.order.customer.code}}">{{$ctrl.order.customer.name}}</a></dd>
+    <dd>
+        <a ng-href="/#!/customers/{{$ctrl.order.customer.code}}">
+            <customer-name customer="$ctrl.order.customer"></customer-name>
+        </a>
+    </dd>
 </dl>
+<!-- 
 <pre>
 DEBUG:
 {{$ctrl.order|json}}
 </pre>
+-->

@@ -5,6 +5,10 @@ ul.simple-menu li {
     margin: 10px;
     display: inline;
 }
-h2.customer-details.vip {
-    color: red;
+span.customer-name {
+    display: inline;
+}
+span.customer-name.VIP:after {
+    /*content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAs0lEQVQ4jcWTWw3DMAxFD4RAKIRBCIRBCIRCCINCKIRAGYRAKITto57qdlHrpJF2pfsTx0fyC/6kp7ibZnEXOeAtdj2AQQFDD2BSwHQXpsttLnsAvDgWgFHFhxIgFJJaHb7QB5BvgLIwdnLsB2B14qKvYwVsPANpeQPMW2Gw3u0VsOq2ZwOw6raXQ/JLrN8WK8wfEqOKRRr6OLHtVinBs+3sZAFm1v6c7ZaTP9kCrJnez98PPxSDwS+6IcUAAAAASUVORK5CYII=");*/
+    content: "\2b50";
 }

@@ -1,6 +1,7 @@
 <h2>Orders list</h2>
 <ul>
     <li ng-repeat="order in $ctrl.orders">
-        <a ng-href="/#!/orders/{{order.id}}">#{{order.id}} - Product: {{order.product}}</a> - Customer: {{order.customer.name}}
+        <a ng-href="/#!/orders/{{order.id}}">#{{order.id}} - Product: {{order.product}}</a> 
+        - Customer: <customer-name customer="order.customer"></customer-name>
     </li>
 </ul>

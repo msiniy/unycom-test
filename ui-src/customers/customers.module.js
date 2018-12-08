@@ -16,4 +16,11 @@ angular.module("customers", [])
             self.customer = response.data;
         });
     }]
+}).component("customerName", {
+    template: "<span class='customer-name' ng-class=\"$ctrl.customer.type\">{{$ctrl.customer.name}}</span>",
+    bindings: {
+        customer: '<',
+    },
+    controller: function CustomerNameController() {
+    }
 });

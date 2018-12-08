@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Code example for UNYCOM",
   "author": "Max Sinelnikov",
+  "repository": "github:msiniy/unycom-test",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress",
