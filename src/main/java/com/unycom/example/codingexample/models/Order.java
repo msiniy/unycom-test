@@ -1,7 +1,6 @@
 package com.unycom.example.codingexample.models;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;

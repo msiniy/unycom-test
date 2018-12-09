@@ -10,7 +10,5 @@ public interface OrderRepository  extends Repository<Order, Long> {
 
     List<Order> findAll();
 
-    List<Order> findByCustomerCode(String customerCode);
-
     Optional<Order> findById(Long id);
 }

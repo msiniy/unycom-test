@@ -2,7 +2,6 @@ package com.unycom.example.codingexample;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -49,8 +48,10 @@ public class JsonSerializationTests {
             case CONFIRMED:
                 o.setConfirmationDate(LocalDateTime.now().minusDays(faker.number().numberBetween(10, 100)));
             case DELIVERED:
+                o.setConfirmationDate(LocalDateTime.now().minusDays(faker.number().numberBetween(10, 100)));
                 o.setCompletionDate(LocalDateTime.now().minusDays(faker.number().numberBetween(10, 100)));
-
+            default:
+            	break;
         }
         return o;
     }
